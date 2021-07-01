@@ -1,0 +1,23 @@
+.square_container {
+    display: flex;
+}
+
+.square:first-child {
+    flex: 2;
+}
+
+.square:last-child {
+    flex: 5;
+}
+
+.square {
+    border: 1px solid #E9E9E9;
+    border-radius: 4px;
+    margin: 5px;
+    height: calc(100vh - 10px);
+}
+
+.square_left > .DraggableTags {
+    display: flex;
+    flex-direction: column;
+}
