@@ -53,6 +53,6 @@
 
 | 属性  |说明|类型|默认值|
 |:---:|:---:|:---:|:---:|
-| onBreakpointChange |  | Object   | {lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0} |
+| onBreakpointChange | 页面大小从一个断点区间过渡到另一个区间的时候触发 | Object   | {lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0} |
 | onLayoutChange |  | Object   | {lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0} |
-| onWidthChange |  | Object   | {lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0} |
+| onWidthChange | 页面尺寸变化的回调 | Object   | {lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0} |

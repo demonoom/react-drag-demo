@@ -6,6 +6,7 @@ import Customized from "./draggable/Customized"
 import Square from "./draggable/square"
 import Rgl from "./draggable/rgl"
 import RglResponsive from "./draggable/rgl_responsive"
+import RglDemos from "./draggable/rgl_demo"
 
 const Router = () => {
     return (
@@ -32,6 +33,9 @@ const Router = () => {
                     </Route>
                     <Route path='/rgl2' exact>
                         <RglResponsive/>
+                    </Route>
+                    <Route path='/demo' exact>
+                        <RglDemos/>
                     </Route>
                 </Switch>
                 <Redirect to='/'/>
