@@ -7,6 +7,7 @@ import Square from "./draggable/square"
 import Rgl from "./draggable/rgl"
 import RglResponsive from "./draggable/rgl_responsive"
 import RglDemos from "./draggable/rgl_demo"
+import AddRemove from "./draggable/add_remove"
 
 const Router = () => {
     return (
@@ -14,7 +15,7 @@ const Router = () => {
             <HashRouter>
                 <Switch>
                     <Route path='/' exact>
-                        <Rgl/>
+                        <RglDemos/>
                     </Route>
                     <Route path='/beautiful' exact>
                         {/*<Beautiful/>*/}
@@ -36,6 +37,9 @@ const Router = () => {
                     </Route>
                     <Route path='/demo' exact>
                         <RglDemos/>
+                    </Route>
+                    <Route path='/add_remove' exact>
+                        <AddRemove/>
                     </Route>
                 </Switch>
                 <Redirect to='/'/>
