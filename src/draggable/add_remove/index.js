@@ -55,6 +55,11 @@ export default class AddRemoveLayout extends React.PureComponent {
     }
 
     // We're using the cols coming back from this to calculate where to add new items.
+    /**
+     * 页面自适应触发断点的回调
+     * @param breakpoint:断点类型
+     * @param cols?
+     */
     onBreakpointChange(breakpoint, cols) {
         this.setState({
             breakpoint: breakpoint,
@@ -62,6 +67,10 @@ export default class AddRemoveLayout extends React.PureComponent {
         });
     }
 
+    /**
+     * 用来保存布局的回调，每次 drag 或者 resize 结束之后返回当前的布局
+     * @param layout
+     */
     onLayoutChange(layout) {
         this.props.onLayoutChange(layout);
         this.setState({layout: layout});
