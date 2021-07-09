@@ -1,0 +1,12 @@
+.wrapper {
+    display: flex;
+}
+
+.left {
+    flex:2
+}
+
+.right {
+    flex:8;
+    height:800px;
+}

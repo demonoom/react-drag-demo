@@ -8,6 +8,7 @@ import Rgl from "./draggable/rgl"
 import RglResponsive from "./draggable/rgl_responsive"
 import RglDemos from "./draggable/rgl_demo"
 import AddRemove from "./draggable/add_remove"
+import Demo from "./draggable/demo"
 
 const Router = () => {
     return (
@@ -40,6 +41,9 @@ const Router = () => {
                     </Route>
                     <Route path='/add_remove' exact>
                         <AddRemove/>
+                    </Route>
+                    <Route path='/antDemo' exact>
+                        <Demo/>
                     </Route>
                 </Switch>
                 <Redirect to='/'/>

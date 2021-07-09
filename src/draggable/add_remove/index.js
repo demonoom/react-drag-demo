@@ -26,7 +26,7 @@ export default class AddRemoveLayout extends React.PureComponent {
                     x: i * 2,
                     y: 0,
                     w: 2,
-                    h: 2,
+                    h: 1,
                     // add: i === (list.length - 1)
                 };
             }),
@@ -87,7 +87,7 @@ export default class AddRemoveLayout extends React.PureComponent {
                 x: (this.state.items.length * 2) % (this.state.cols || 12),
                 y: Infinity, // puts it at the bottom
                 w: 2,
-                h: 2
+                h: 1
             }),
             // Increment the counter to ensure key is always unique.
             newCounter: this.state.newCounter + 1
@@ -108,6 +108,7 @@ export default class AddRemoveLayout extends React.PureComponent {
             <div>
                 <button onClick={this.onAddItem}>Add Item</button>
                 <ResponsiveReactGridLayout
+                    style={{border: '1px solid black'}}
                     onLayoutChange={this.onLayoutChange}
                     onBreakpointChange={this.onBreakpointChange}
                     compactType='horizontal'

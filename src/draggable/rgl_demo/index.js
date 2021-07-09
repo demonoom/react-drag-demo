@@ -1,6 +1,8 @@
 import React from "react";
 import _ from "lodash";
 import {Responsive, WidthProvider} from "react-grid-layout";
+import './index.css'
+import {message} from "antd"
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -19,7 +21,7 @@ export default class DragFromOutsideLayout extends React.Component {
     state = {
         currentBreakpoint: "lg",
         compactType: "vertical",
-        layouts: {lg: generateLayout()}
+        layouts: {lg: []}
     };
 
     /**
@@ -28,8 +30,9 @@ export default class DragFromOutsideLayout extends React.Component {
      */
     generateDOM() {
         return _.map(this.state.layouts.lg, function (item, index) {
+            console.log(item,'item');
             return (
-                <div key={index} style={{backgroundColor: 'red'}} className={item.static ? "static" : ""}>
+                <div key={item.i} style={{backgroundColor: 'red'}} className={item.static ? "static" : ""}>
                     {
                         item.static ? (
                             <span className="text"
@@ -79,7 +82,10 @@ export default class DragFromOutsideLayout extends React.Component {
 
     //释放到栅格
     onDrop = (layout, layoutItem, _event) => {
-        alert(`Dropped element props:\n${JSON.stringify(layoutItem, ['x', 'y', 'w', 'h'], 2)}`);
+        layoutItem.i = String(parseInt(Math.random()*100000))
+        layoutItem.content = '试卷类型';
+        this.setState({layouts:{lg:layout}})
+        message.info(`Dropped element props:\n${JSON.stringify(layoutItem, ['x', 'y', 'w', 'h'], 2)}`)
     };
 
     render() {
@@ -97,40 +103,47 @@ export default class DragFromOutsideLayout extends React.Component {
                 <button onClick={this.onCompactTypeChange}>
                     更改压缩类型
                 </button>
-                <div
-                    className="droppable-element"
-                    style={{
-                        width: 150,
-                        textAlign: 'center',
-                        backgroundColor: '#fdd',
-                        border: '1px solid black',
-                        margin: '10px 0',
-                        padding: 10
-                    }}
-                    draggable={true}
-                    unselectable="on"
-                    // this is a hack for firefox
-                    // Firefox requires some kind of initialization
-                    // which we can do by adding this attribute
-                    // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-                    onDragStart={e => e.dataTransfer.setData("text/plain", "")}
-                >
-                    Droppable Element (Drag me!)
+                <div className='wrapper'>
+                    <div className='left'>
+                        <div
+                            className="droppable-element"
+                            style={{
+                                width: 150,
+                                textAlign: 'center',
+                                backgroundColor: '#fdd',
+                                border: '1px solid black',
+                                margin: '10px 0',
+                                padding: 10
+                            }}
+                            draggable={true}
+                            unselectable="on"
+                            // this is a hack for firefox
+                            // Firefox requires some kind of initialization
+                            // which we can do by adding this attribute
+                            // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+                            onDragStart={e => e.dataTransfer.setData("text/plain", "")}
+                        >
+                            Droppable Element (Drag me!)
+                        </div>
+                    </div>
+                    <div className='right'>
+                        <ResponsiveReactGridLayout
+                            style={{border: '1px solid black',height:800}}
+                            {...this.props}
+                            layouts={this.state.layouts}
+                            onBreakpointChange={this.onBreakpointChange}   //页面大小从一个断点区间过渡到另一个区间的时候触发
+                            onLayoutChange={this.onLayoutChange}     //用来保存布局的回调，每次 drag 或者 resize 结束之后返回当前的布局
+                            onDrop={this.onDrop}
+                            // WidthProvider option
+                            measureBeforeMount={false}
+                            compactType={this.state.compactType}
+                            preventCollision={!this.state.compactType}
+                            isDroppable={true}
+                        >
+                            {this.generateDOM()}
+                        </ResponsiveReactGridLayout>
+                    </div>
                 </div>
-                <ResponsiveReactGridLayout
-                    {...this.props}
-                    layouts={this.state.layouts}
-                    onBreakpointChange={this.onBreakpointChange}   //页面大小从一个断点区间过渡到另一个区间的时候触发
-                    onLayoutChange={this.onLayoutChange}     //用来保存布局的回调，每次 drag 或者 resize 结束之后返回当前的布局
-                    onDrop={this.onDrop}
-                    // WidthProvider option
-                    measureBeforeMount={false}
-                    compactType={this.state.compactType}
-                    preventCollision={!this.state.compactType}
-                    isDroppable={true}
-                >
-                    {this.generateDOM()}
-                </ResponsiveReactGridLayout>
             </div>
         );
     }
@@ -142,7 +155,7 @@ export default class DragFromOutsideLayout extends React.Component {
  * @returns {unknown[]}
  */
 function generateLayout() {
-    return _.map(_.range(0, 25), function (item, i) {
+    const layout = _.map(_.range(0, 25), function (item, i) {
         const y = Math.ceil(Math.random() * 4) + 1;
         return {
             x: Math.round(Math.random() * 5) * 2,
@@ -153,6 +166,8 @@ function generateLayout() {
             static: Math.random() < 0.05
         };
     });
+    // console.log(layout,'layout');
+    return layout;
 }
 
 // if (process.env.STATIC_EXAMPLES === true) {
